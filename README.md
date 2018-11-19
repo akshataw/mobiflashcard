@@ -1,7 +1,7 @@
 # Mobile Flashcard App
 
 Run the Project: 
- For running the project, open snack.expo.io link in the browser. 
+ For running the project, open https://snack.expo.io link in the browser. 
  
  Then click on the Import Git Repository option from the menu on the right of Project menu.
 
