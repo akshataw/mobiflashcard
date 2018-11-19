@@ -10,7 +10,7 @@ import {
 import { addCardToDeck } from '../utils/api';
 
 
-class AddQuestion extends React.Component {
+class AddCard extends React.Component {
   state = {
     questionText: '',
     answerText: '',
@@ -57,25 +57,25 @@ class AddQuestion extends React.Component {
         }}
         behavior="padding"
       >
-        <Card title="Add a Card">
-          <FormLabel style={styles.formTexts}>Question:</FormLabel>
-          <FormInput style={styles.formTexts}
+        <Card title="Add Card" >
+          <FormLabel>Question:</FormLabel>
+          <FormInput
             onChangeText={questionText => this.setState({ questionText })}
             value={this.state.titleText}
           />
-          <FormLabel style={styles.formTexts}>Answer:</FormLabel>
-          <FormInput style={styles.formTexts}
+          <FormLabel>Answer:</FormLabel>
+          <FormInput
             onChangeText={answerText => this.setState({ answerText })}
             value={this.state.titleText}
           />
           <FormValidationMessage>
-            {this.state.errorMessage ? alert('Both fields are required'): ''}
+            {this.state.errorMessage ? alert('Both fields are required!') : ''}
           </FormValidationMessage>
           <Button
             title="Submit"
             raised
-            backgroundColor="green"
-            borderRadius= { 10 }
+            backgroundColor="dodgerblue"
+            borderRadius = {10}
             onPress={this.handleSubmit}
           />
         </Card>
@@ -84,14 +84,4 @@ class AddQuestion extends React.Component {
   }
 }
 
-const styles = {
- formTexts : {
-    justifyContent: 'center',
-    alignContent: 'center',
-    fontSize: 15,
- }
-}
-
-export default AddQuestion;
-
-
+export default AddCard;

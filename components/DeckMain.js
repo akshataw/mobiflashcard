@@ -1,13 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import DeckList from './DeckList';
-
+import Decks from './Decks';
 
 export default class DeckMain extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <DeckList {...this.props} />
+        <Decks {...this.props} />
       </View>
     );
   }

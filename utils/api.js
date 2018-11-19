@@ -2,12 +2,12 @@ import { AsyncStorage } from 'react-native';
 
 const data = [
   {
-    title: 'Title Text',
+    title: 'Text Line one',
     cardCount: 3,
-    key: 'item1'
+    key: 'item1' 
   },
   {
-    title: 'Different Text',
+    title: 'Another Text',
     cardCount: 3,
     key: 'item2'
   },
@@ -18,23 +18,21 @@ const data = [
   }
 ];
 
-
-export function getDecks() {  
+export function getDecks(){
   return AsyncStorage.getAllKeys().then(keys => {
     return AsyncStorage.multiGet(keys).then(stores => {
       return stores.map((result, i, store) => {
-        // get at each store's key/value so you can work with it
         let key = store[i][0];
         let value = JSON.parse(store[i][1]);
-        if (value) {
-          return {
+        if(value){
+          return{
             key,
             title: value.title,
             questions: value.questions
           };
         }
       }).filter(items => {
-        if (items) {
+        if(items){
           return typeof items.questions !== 'undefined'
         }
       });
@@ -42,33 +40,30 @@ export function getDecks() {
   });
 }
 
-export function getDeck(id) {
+export function getDeck(id){
   return AsyncStorage.getItem(id);
 }
 
-export function saveDeckTitle(title) {
-  try {
-    return AsyncStorage.setItem(title, JSON.stringify({ title, questions: [] }));
-  } catch (error) {
-    console.log(error);
+export function saveDeckTitle(title){
+  try{
+    return AsyncStorage.setItem(title, JSON.stringify({
+      title, questions: []
+    }));
+  } catch(err){
+    console.log(err);
   }
 }
 
-export function addCardToDeck(title, card) {
-  // console.log("add card", title, card.question, card.answer);
-  try {
+export function addCardToDeck(title, card){
+  try{
     AsyncStorage.getItem(title).then(result => {
       const data = JSON.parse(result);
-
       let questions = data.questions;
       questions.push(card);
-
-      AsyncStorage.mergeItem(title, JSON.stringify({
-        questions
-      }));
+      AsyncStorage.mergeItem(title, JSON.stringify({ questions }));
     });
-  } catch (error) {
-    console.log(error);
+  } catch(err){
+    console.log(err);
   }
-  return "thanks"
+  return "Thanks!"
 }

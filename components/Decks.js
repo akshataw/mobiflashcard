@@ -10,7 +10,7 @@ import { Badge, Card } from 'react-native-elements';
 import { fetchDeckDB } from '../actions';
 
 
-class DeckList extends React.Component {
+class Decks extends React.Component {
 
   componentDidMount() {
     this.props.fetchDeckDB();
@@ -23,7 +23,7 @@ class DeckList extends React.Component {
   renderItem = ({ item }) =>
     <TouchableOpacity
       onPress={() => this.props.navigation.navigate(
-              'DeckDetail',
+              'DeckDetails',
               {
                 entryId: item.key,
                 navTitle: item.title
@@ -33,10 +33,10 @@ class DeckList extends React.Component {
       <View>
         <Card
           title={item.title}
-          subtitle={`${item.questions.length} cards`}
+          subtitle={`${item.questions.length} cards` }
         >
           <Badge
-            containerStyle={{ backgroundColor: 'yellow'}}
+            containerStyle={{ backgroundColor: 'aqua'}}
           >
             <Text>
               {`${item.questions.length} cards`}
@@ -56,14 +56,9 @@ class DeckList extends React.Component {
             data={this.props.DBdata}
             renderItem={this.renderItem}
           />
-          : <View>
-             <Text style={{ padding: 40, 
-                            fontSize: 40,
-                            fontWeight: 'bold',
-                            marginLeft: 70,
-                            color: 'purple',
-                         }}>Welcome</Text>
-             <Card title="Create your Decks!" />
+          : <View> 
+          <Text style={styles.welcomeText}>Welcome to Flashcard</Text>
+           <Card title="Create your decks!"/>
           </View>
         }
       </View>
@@ -75,6 +70,12 @@ const styles = {
   containerStyle: {
     flex: 1,
     alignSelf: 'stretch'
+  },
+  welcomeText: {
+     marginTop: 50,
+     marginLeft: 70,
+     fontSize: 25,
+     color: 'blue',
   }
 };
 
@@ -84,5 +85,5 @@ const mapStateToProps = state => {
   return { DBdata };
 };
 
-export default connect(mapStateToProps, { fetchDeckDB })(DeckList);
+export default connect(mapStateToProps, { fetchDeckDB })(Decks);
 

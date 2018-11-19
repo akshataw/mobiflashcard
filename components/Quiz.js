@@ -11,9 +11,9 @@ import {
   setLocalNotification
 } from '../utils/helpers';
 
-
-class QuizMain extends React.Component {
+class Quiz extends React.Component {
   state = {
+    showQuestion: true,
     questions: this.shuffleQuestions(),
     currentQuestion: 0,
     correctAnswers: 0
@@ -33,7 +33,8 @@ class QuizMain extends React.Component {
   resetQuiz() {
     this.setState(() =>{
       return {
-        questions: this.shuffleQuestions(),
+        showQuestion: true,
+          questions: this.shuffleQuestions(),
         currentQuestion: 0,
         correctAnswers: 0
       }
@@ -74,19 +75,11 @@ class QuizMain extends React.Component {
       return (
         <Card
           title={
-             `Q: ${questions[currentQuestion].question}`
+            this.state.showQuestion
+              ? `Question : ${questions[currentQuestion].question}`
+              : `Answer : ${questions[currentQuestion].answer}`
           }
         >
-        <View>
-           <View style={styles.badgeStyle}>
-            <Badge
-              containerStyle={{ backgroundColor: 'violet', height: 25, width: 250 }}
-              onPress={() => this.setState({ showQuestion: !this.state.showQuestion })}
-            >
-             <Text> A: ${questions[currentQuestion].answer}</Text>
-            </Badge>
-          </View>
-        </View>
           <View>
             <Text
               style={styles.questionsRemaining}
@@ -94,11 +87,23 @@ class QuizMain extends React.Component {
               {`Question ${currentQuestion+1} of ${questions.length}`}
             </Text>
           </View>
-  
+          <View style={styles.badgeStyle}>
+            <Badge
+              backgroundColor= 'yellow'
+              justifyContent= 'center'
+              alignItems= 'center'
+              width= {250}
+              onPress={() => this.setState({ showQuestion: !this.state.showQuestion })}
+            >
+              <Text>
+                {this.state.showQuestion ? "View Answer" : "View Question"}
+              </Text>
+            </Badge>
+          </View>
           <Button
-            buttonStyle={styles.buttonStyle}
             title="Correct"
-            backgroundColor='green'
+            backgroundColor= 'green'
+            borderRadius= {10}
             onPress={() => {
               this.setState({
                 currentQuestion: currentQuestion+1,
@@ -107,9 +112,10 @@ class QuizMain extends React.Component {
             }}
           />
           <Button
-            buttonStyle={[styles.buttonStyle, { marginTop: 10 }]}
+            buttonStyle={{ marginTop: 10 }}
             title="Incorrect"
             backgroundColor='red'
+            borderRadius= {10}
             onPress={() => this.setState({ currentQuestion: currentQuestion+1 })}
           />
         </Card>
@@ -120,15 +126,17 @@ class QuizMain extends React.Component {
         title={`You got ${correctAnswers} out of ${questions.length}`}
       >
         <Button
-          buttonStyle={styles.buttonStyle}
-          title="Try again"
-          backgroundColor='green'
+          buttonStyle={{ marginTop: 10 }}
+          title="Restart Quiz"
+          backgroundColor='dodgerblue'
+          borderRadius= {10}
           onPress={() => this.resetQuiz()}
         />
         <Button
-          buttonStyle={[styles.buttonStyle, { marginTop: 10 }]}
+          buttonStyle={{ marginTop: 10 }}
           title="Back to Deck"
-          backgroundColor='red'
+          backgroundColor='dodgerblue'
+          borderRadius= {10}
           onPress={() => this.backToDeck()}
         />
       </Card>
@@ -151,23 +159,12 @@ class QuizMain extends React.Component {
 }
 
 const styles = {
-  buttonStyle: {
-    borderRadius: 10,
-    marginLeft: 0,
-    marginRight: 0,
-    marginBottom: 0,
-  },
   questionsRemaining: {
     textAlign: 'center',
-    marginBottom: 10
+    marginBottom: 10,
+    fontSize: 15,
   },
-  badgeStyle: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 50,
-    marginTop: 0
-  }
 };
 
 
-export default QuizMain;
+export default Quiz;

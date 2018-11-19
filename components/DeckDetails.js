@@ -6,11 +6,11 @@ import {
 import { Card, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import {
-  getDeckDetails,
+  getDeckInfo,
   deleteDeck,
 } from '../actions';
 
-class DeckDetail extends React.Component {
+class DeckDetails extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
@@ -19,11 +19,11 @@ class DeckDetail extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getDeckDetails(this.props.navigation.state.params.entryId);
+    this.props.getDeckInfo(this.props.navigation.state.params.entryId);
   }
 
   componentDidUpdate() {
-    this.props.getDeckDetails(this.props.navigation.state.params.entryId);
+    this.props.getDeckInfo(this.props.navigation.state.params.entryId);
   }
 
   deleteItem() {
@@ -41,19 +41,18 @@ class DeckDetail extends React.Component {
           alignContent: 'center'
         }}
       >
-        <Card title={this.props.title}>
-          <Text style={{marginBottom: 10, textAlign: 'center', fontSize: 20, }}>
+        <Card title={this.props.title} >
+          <Text style={{marginBottom: 10, textAlign: 'center'}}>
             {this.props.questions ? this.props.questions.length : 0} cards available
           </Text>
           <View>
             <Button
-              icon={{name: 'add-circle'}}
-              backgroundColor='purple'
+              backgroundColor='dodgerblue'
               buttonStyle={styles.buttonStyle}
-              title='Add your card'
+              title='Add Card'
               onPress={() => {
                   this.props.navigation.navigate(
-                    'AddQuestion',
+                    'AddCard',
                     {
                       navTitle: this.props.title,
                       title: this.props.title
@@ -65,38 +64,24 @@ class DeckDetail extends React.Component {
           </View>
           <View>
             <Button
-              icon={{name: 'play-arrow'}}
               backgroundColor='green'
               buttonStyle={[styles.buttonStyle, { marginTop: 10 }]}
-              title='Quiz'
+              title='Start Quiz'
               onPress={() => {
-                if(this.props.questions.length > 0){
                   this.props.navigation.navigate(
-                    'QuizMain',
+                    'Quiz',
                     {
                       navTitle: this.props.title,
                       questions: this.props.questions }
-                  )
+                  );
                 }
-                else{
-                 alert("You have to add card to start Quiz!");
-                }
-                  /* this.props.navigation.navigate(
-                    'QuizMain',
-                    {
-                      navTitle: this.props.title,
-                      questions: this.props.questions }
-                  )*/
-                }
-              }
-            />
+              } />
           </View>
         </Card>
         <View>
           <Button
-            icon={{name: 'delete'}}
             title="Delete Deck"
-            buttonStyle={[styles.buttonStyle, { marginTop: 50 }, ]}
+            buttonStyle={[styles.buttonStyle, { marginTop: 40 }]}
             backgroundColor="red"
             onPress={() => this.deleteItem()}
           />
@@ -123,4 +108,4 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  deleteDeck, getDeckDetails })(DeckDetail);
+  deleteDeck, getDeckInfo })(DeckDetails);

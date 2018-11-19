@@ -12,8 +12,7 @@ import {
 } from 'react-native-elements';
 import { saveDeckTitle } from '../utils/api';
 
-
-class AddEntry extends React.Component {
+export default class AddEntry extends React.Component {
   state = {
     titleText: '',
     errorMessage: false
@@ -28,7 +27,7 @@ class AddEntry extends React.Component {
         titleText: ''
       });
       this.props.navigation.navigate(
-        'DeckDetail',
+        'DeckDetails',
         {
           entryId: titleText,
           navTitle: titleText
@@ -36,9 +35,7 @@ class AddEntry extends React.Component {
         Keyboard.dismiss()
       );
     } else {
-      this.setState({
-         errorMessage: true
-          })
+      this.setState({ errorMessage: true })
     }
   };
 
@@ -51,19 +48,19 @@ class AddEntry extends React.Component {
         }}
         behavior="padding"
       >
-        <Card title="Suggest a title for your new deck..." >
+        <Card title="Suggest any title for your new deck?" >
           <FormInput
             onChangeText={titleText => this.setState({ titleText })}
             value={this.state.titleText}
           />
           <FormValidationMessage>
-            {this.state.errorMessage ? alert('You haven\'t give any name to your deck!') : ''}
+            {this.state.errorMessage ? alert("This field is required!") : ''}
           </FormValidationMessage>
-          <Button style={styles.butn}
-            title="Create My Deck"
+          <Button
+            title="Create Deck"
             raised
-            backgroundColor= 'purple'
-            borderRadius= { 10 }
+            backgroundColor="dodgerblue"
+            borderRadius={10}
             onPress={this.handleSubmit}
           />
         </Card>
@@ -71,13 +68,3 @@ class AddEntry extends React.Component {
     );
   }
 }
-
-const styles = {
-  butn : {
-            justifyContent: 'center',
-            alignContent: 'center',
-            fontSize: 20,
-  }
-}
-
-export default AddEntry;

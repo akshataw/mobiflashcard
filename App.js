@@ -1,19 +1,17 @@
-import React from 'react';
-import {
-  StatusBar,
-  View
-} from 'react-native';
+import * as React from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import { Card } from 'react-native-paper';
+import { Constants } from 'expo';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
-import { Constants } from 'expo';
 import DeckMain from './components/DeckMain';
-import DeckDetail from './components/DeckDetail';
 import AddEntry from './components/AddEntry';
-import AddQuestion from './components/AddQuestion';
-import QuizMain from './components/QuizMain';
+import AddCard from './components/AddCard';
+import DeckDetails from './components/DeckDetails';
+import Quiz from './components/Quiz';
 import reducer from './reducers';
 import { setLocalNotification } from './utils/helpers';
 
@@ -22,73 +20,68 @@ const Tabs = TabNavigator({
     screen: DeckMain,
     navigationOptions: {
       tabBarLabel: 'Decks',
-      tabBarIcon: ({ tintColor }) => <Ionicons name="ios-home" size={30} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <Ionicons name="ios-home" size={30} color={ tintColor } />
     }
   },
-  AddEntry: {
+   AddEntry: {
     screen: AddEntry,
     navigationOptions: {
       tabBarLabel: 'Add Deck',
-      tabBarIcon: ({ tintColor }) => <FontAwesome name="plus-square" size={30} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <FontAwesome name="plus-square" size={30} color={ tintColor } />
     }
   }
 });
 
-const MainNavigator =  StackNavigator({
+const Stacks = StackNavigator({
   Home: {
     screen: Tabs,
     navigationOptions: {
-      title: "Flash Cards",
+      title: "Flashcard",
       headerTintColor: "white",
       headerStyle: {
         backgroundColor: "blue"
-
       }
     }
   },
-  DeckDetail: {
-    screen: DeckDetail,
+  DeckDetails: {
+    screen: DeckDetails,
     navigationOptions: {
       headerTintColor: "white",
       headerStyle: {
         backgroundColor: "blue"
-
       }
     }
   },
-  AddQuestion: {
-    screen: AddQuestion,
+  AddCard: {
+    screen: AddCard,
     navigationOptions: {
       headerTintColor: "white",
       headerStyle: {
         backgroundColor: "blue"
-
       }
     }
   },
-  QuizMain: {
-    screen: QuizMain,
+  Quiz: {
+    screen: Quiz,
     navigationOptions: {
       headerTintColor: "white",
       headerStyle: {
         backgroundColor: "blue"
-
       }
     }
   }
 });
 
 export default class App extends React.Component {
-  componentDidMount() {
+  componentDidMount(){
     setLocalNotification();
   }
-
   render() {
     const store = createStore(reducer, {}, applyMiddleware(ReduxThunk));
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>
-          <MainNavigator />
+          <Stacks />
         </View>
       </Provider>
     );
