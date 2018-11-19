@@ -1,13 +1,17 @@
-# Sample Snack app
+# Mobile Flashcard App
 
-Welcome to Expo!
+Run the Project: 
+ For running the project, open snack.expo.io link in the browser. 
+ 
+ Then click on the Import Git Repository option from the menu on the right of Project menu.
 
-Open the `App.js` file to start writing some code. You can preview the changes directly on your phone or tablet by clicking the **Run** button or use the simulator by clicking **Tap to Play**. When you're done, click **Save** and share the link!
+ Import the Git Repository: 
+     https://github.com/akshataw/mobiflashcard
+ 
+ and you will get the whole code of MobileFlashcard app.
+ 
+ To run the project: 
+  1> Click on the "Run" button to run it on android device and scan QR code in your Expo app to open the project.
+  2> Click on "Tap to Play" button to run the project on snack.
 
-When you're ready to see everything that Expo provides (or if you want to use your own editor) you can **Export** your project and use it with [expo-cli](https://docs.expo.io/versions/latest/introduction/installation.html).
 
-Projects created in Snack are publicly available, so you can easily share the link to this project via link, or embed it on a web page with the **Embed** button.
-
-If you're having problems, you can tweet to us [@expo](https://twitter.com/expo) or ask in our [forums](https://forums.expo.io).
-
-Snack is Open Source. You can find the code on the [GitHub repo](https://github.com/expo/snack-web).
